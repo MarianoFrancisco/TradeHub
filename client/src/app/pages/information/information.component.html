@@ -1,0 +1,58 @@
+<app-nav></app-nav>
+<h1 align="center" style="color:#ff8b31;">ESTADO DE PUBLICACIONES</h1>
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">NUMERO</th>
+            <th scope="col">NOMBRE</th>
+            <th scope="col">DESCRIPCION</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for(publicationState of publicationStates; track publicationState){
+        <tr>
+            <th scope="row">{{publicationState.id}}</th>
+            <td>{{publicationState.name}}</td>
+            <td>{{publicationState.description}}</td>
+        </tr>
+        }
+    </tbody>
+</table>
+<h1 align="center" style="color:#ff8b31;">TIPOS DE PUBLICACIONES</h1>
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">NUMERO</th>
+            <th scope="col">NOMBRE</th>
+            <th scope="col">DESCRIPCION</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for(publicationType of publicationTypes; track publicationType){
+        <tr>
+            <th scope="row">{{publicationType.id}}</th>
+            <td>{{publicationType.name}}</td>
+            <td>{{publicationType.description}}</td>
+        </tr>
+        }
+    </tbody>
+</table>
+<h1 align="center" style="color:#ff8b31;">CATEGORIAS</h1>
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">NUMERO</th>
+            <th scope="col">NOMBRE</th>
+            <th scope="col">DESCRIPCION</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for(category of categories; track category){
+        <tr>
+            <th scope="row">{{category.id}}</th>
+            <td>{{category.name}}</td>
+            <td>{{category.description}}</td>
+        </tr>
+        }
+    </tbody>
+</table>

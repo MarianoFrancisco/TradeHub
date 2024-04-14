@@ -1,0 +1,81 @@
+<app-nav></app-nav>
+<h1 align="center" style="color:#ff8b31;">{{ publication.title }}</h1>
+<br>
+<main>
+    <div class="container-img">
+        <img src="{{publication.image}}" alt="imagen-producto" />
+    </div>
+    <div class="container-info-product">
+        <div class="container-price">
+            <span>Precio por unidad: {{publication.unity_price}}</span>
+            <i class="fa-solid fa-angle-right"></i>
+        </div>
+        <div class="container-description">
+            <div class="title-category">
+                <h4>Categoria</h4>
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <div class="text-category">
+                <p>
+                    {{category.valueOf()}}
+                </p>
+            </div>
+        </div>
+        <div class="container-description">
+            <div class="title-description">
+                <h4>Descripción</h4>
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <div class="text-description">
+                <p>
+                    {{publication.description}}
+                </p>
+            </div>
+        </div>
+
+        <div class="container-additional-information">
+            <div class="title-additional-information">
+                <h4>Cantidad disponible</h4>
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <div class="text-additional-information hidden">
+                {{publication.quantity}}
+            </div>
+        </div>
+
+        <div class="container-reviews">
+            <div class="title-reviews">
+                <h4>Tipo de publicacion</h4>
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <div class="text-reviews hidden">
+                {{publicationTypes.valueOf()}}
+            </div>
+        </div>
+        <br>
+        @if(login()){
+        <div class="container-add-cart">
+            <div class="container-quantity">
+                <input type="number" placeholder="1" value="1" min="1" class="input-quantity" />
+            </div>
+            <button class="btn-add-to-cart">
+                <i class="fa-solid fa-plus"></i>
+                @if(publication.publication_type_id === 1){
+                Vender producto
+                }@else if(publication.publication_type_id === 2){
+                Comprar producto
+                }@else{
+                Trueque (Voluntariado) de producto
+                }
+            </button>
+            <button (click)="register()" class="btn-add-to-cart">
+                <i class="fa-solid fa-plus"></i>
+                Crear chat
+            </button>
+        </div>
+        }
+        <div class="container-add-cart">
+            <span>Fecha de creacion: {{publication.date}}</span>
+        </div>
+    </div>
+</main>

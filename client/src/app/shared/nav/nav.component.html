@@ -1,0 +1,44 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse">
+            @if(login()){
+            @if(user().rol_id!=1){
+            <a class="navbar-brand" routerLink="/">INICIO</a>
+            }
+            }@else{
+            <a class="navbar-brand" routerLink="/">INICIO</a>
+            }
+            <ul class="nav navbar-nav">
+                @if(!login()){
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/login">INICIAR SESION</a>
+                </li>
+                }
+                @if(login()){
+                @if(user().rol_id==1){
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/review_publication">REVISAR PUBLICACION</a>
+                </li>
+                }
+                @if(user().rol_id==2){
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/coin">MONEDA</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/user_publication">MIS PUBLICACIONES</a>
+                </li>
+                }
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/chat">CHAT</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/information">INFORMACION</a>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" (click)="logout()">CERRAR SESION</button>
+                </li>
+                }
+            </ul>
+        </div>
+    </div>
+</nav>

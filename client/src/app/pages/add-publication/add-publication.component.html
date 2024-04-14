@@ -1,0 +1,86 @@
+<app-nav></app-nav>
+<div class="container">
+    <form [formGroup]="registerForm"  enctype="multipart/form-data">
+        <br>
+        <h1 id="blinking" style="color: #66ffff;">
+            CREAR PUBLICACION
+        </h1>
+        <div id="box">
+            <input formControlName="title" class="form-control" type="text" name="title" placeholder="Ingrese el titulo"
+                id="title" class="input"><br><br>
+            @if(title.invalid && (title.dirty || title.touched)){
+            <div class="text-danger">
+                @if(title.errors?.['required']){
+                El titulo es requerido.
+                }
+            </div>
+            }<br>
+            <input formControlName="description" class="form-control" type="description" name="description"
+                placeholder="Ingrese la descripcion del producto" id="description" class="input"><br><br>
+            @if(description.invalid && (description.dirty || description.touched)){
+            <div class="text-danger">
+                @if(description.errors?.['required']){
+                La descripcion es requerida.
+                }
+            </div>
+            }<br>
+            <input formControlName="quantity" class="form-control" type="number" name="quantity"
+                placeholder="Ingrese la cantidad del producto" id="quantity" class="input"><br><br>
+            @if(quantity.invalid && (quantity.dirty || quantity.touched)){
+            <div class="text-danger">
+                @if(quantity.errors?.['required']){
+                La cantidad de producto es requerida.
+                }
+                @if(quantity.errors?.['pattern']){
+                La cantidad debe ser entera
+                }
+            </div>
+            }<br>
+            <input formControlName="unity_price" class="form-control" type="number" name="price"
+                placeholder="Ingrese el precio por unidad" id="price" class="input"><br><br>
+            @if(price.invalid && (price.dirty || price.touched)){
+            <div class="text-danger">
+                @if(price.errors?.['required']){
+                El precio de la publicacion es requerida
+                }
+                @if(price.errors?.['pattern']){
+                El precio debe ser numero entero o decimal de dos digitos
+                }
+            </div>
+            }<br>
+            <select formControlName="publication_type_id" name="type" class="select">
+                <option value="0" disabled selected>Selecciona un tipo de publicacion</option>
+                @for(publicationType of publicationTypes; track publicationType){
+                <option value="{{publicationType.id}}">{{publicationType.name}}</option>
+                }
+            </select><br><br>
+            @if(publication_type_id.value === 0){
+            <div class="text-danger">
+                El tipo de publicacion es requerido.
+            </div>
+            }<br>
+            <select formControlName="category_id" name="type" class="select">
+                <option value="0" disabled selected>Selecciona una categoria</option>
+                @for(category of categories; track category){
+                <option value="{{category.id}}">{{category.name}}</option>
+                }
+            </select><br><br>
+            @if(category_id.value === 0){
+            <div class="text-danger">
+                La categoria es requerida.
+            </div>
+            }<br>
+            <label for="title" style="color:#000000">IMAGEN:</label> <br><br>
+            <input formControlName="image" (change)="onFileSelected($event)" required type="file" name="img" id="img" class="input"><br><br>
+            @if(image.invalid && (image.dirty || image.touched)){
+            <div class="text-danger">
+                @if(image.errors?.['required']){
+                La imagen es requerida.
+                }
+            </div>
+            }<br>
+            <input type="submit" (click)="savePublication()" name="login" value="REGISTRAR PUBLICACION" id="inBtn"
+                style="background-color:rgb(0, 255, 0)">
+        </div>
+    </form>
+</div>

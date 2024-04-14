@@ -1,0 +1,29 @@
+.inBtn {
+    width: calc(100% / 6 - 10px); /* Ancho de cada botón */
+    height: auto; /* Ajusta la altura automáticamente según el contenido del texto */
+    border-radius: 10px;
+    padding: 10px 20px; /* Agrega padding interno para darle espacio al texto */
+    font-size: 16px; /* Ajusta el tamaño de la fuente */
+    color: #000000;
+    cursor: pointer;
+    font-weight: bold;
+    flex: 1; /* Hace que los botones ocupen el mismo ancho y se distribuyan equitativamente */
+    margin: 0 5px; /* Añade margen entre los botones */
+    max-width: calc(100% / 6 - 10px); /* Define el ancho máximo de cada botón */
+}
+
+.inBtnCreate {
+    width: 100%;
+    height: 50px;
+    border-radius: 10px;
+    line-height: 10px;
+    color: #000000;
+    cursor: pointer;
+}
+
+.button-container {
+    display: flex; /* Hace que los elementos hijos se alineen en una fila */
+    width: 100%; /* El contenedor ocupa todo el ancho del navegador */
+    justify-content: space-between; /* Distribuye los elementos hijos equitativamente en la fila */
+    padding: 0 10px; /* Agrega un poco de espacio alrededor de los botones */
+}

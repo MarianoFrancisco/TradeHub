@@ -1,0 +1,29 @@
+<app-nav></app-nav>
+@if(login()){
+}
+<h1 align="center" style="color:#ff8b31;">PUBLICACIONES</h1>
+@for(publicationAll of publications; track publicationAll){
+<section class="contenido">
+  <div class="mostrador" id="mostrador">
+    <div class="fila">@for(publication of publicationAll; track publication){
+      <div class="item" routerLink="/publication/{{publication.id}}">
+        <div class="contenedor-foto">
+          <img src="{{ publication.image}}" style="width: 200px; height: 190px;">
+        </div>
+        @if( publication.title.length < 34){
+          @if( publication.title.length > 25){
+            <p class="descripcion">{{ publication.title}}</p>
+          }@else{
+            <p class="descripcion">{{ ('&nbsp;'.repeat((34 - publication.title.length) / 2)) + publication.title + ('&nbsp;'.repeat((34 - publication.title.length) / 4)) }}</p>
+          }
+        }@else{
+          <p class="descripcion">{{ publication.title.slice(0,30) }} ...</p>
+        }
+        <span class="precio">{{ publication.unity_price }}</span>
+      </div>
+      }
+    </div>
+  </div>
+</section>
+<br><br>
+}

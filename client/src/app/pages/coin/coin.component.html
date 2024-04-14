@@ -1,0 +1,47 @@
+<app-nav></app-nav>
+<h1 align="center" style="color:#ff8b31;">MONEDAS</h1>
+<br>
+<main>
+    <div class="container-img">
+        <img src="../../../assets/img/logoTest.jpg" alt="Logo" />
+    </div>
+    <div class="container-info-product">
+        <br>
+        <div class="container-price">
+            <p ALIGN="justify" class="card-text">Monedas actuales del usuario, del sistema y de voluntariado.</p>
+            <i class="fa-solid fa-angle-right"></i>
+        </div>
+        <div class="container-description">
+            <div class="title-category">
+                <h4>Monedas de voluntariado</h4>
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <div class="text-category">
+                <p>
+                    {{coin.volunteerism_coin}}
+                </p>
+            </div>
+        </div>
+        <div class="container-description">
+            <div class="title-description">
+                <h4>Monedas en el sistema</h4>
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <div class="text-description">
+                <p>
+                    {{coin.system_coin}}
+                </p>
+            </div>
+        </div>
+        <br>
+        <div class="container-add-cart">
+            <div class="container-quantity">
+                <input type="number" placeholder="1" value="1" min="1" class="input-quantity" />
+            </div>
+            <button class="btn-add-to-cart">
+                <i class="fa-solid fa-plus"></i>
+                COMPRAR MONEDAS
+            </button>
+        </div>
+    </div>
+</main>
