@@ -274,15 +274,3 @@ main {
     display: flex;
     justify-content: space-between;
 }
-
-.custom-confirm {
-    background-color: green;
-}
-
-.custom-cancel {
-    background-color: red;
-}
-
-.custom-deny {
-    background-color: orange;
-}
