@@ -1,9 +1,11 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { Publication } from '../../models/publication';
 import { PublicationService } from '../../services/publication/publication.service';
 import { Router } from '@angular/router';
 import { LoginService } from '../../services/auth/login.service';
 import Swal from 'sweetalert2';
+import { environment } from '../../../environments/environment.prod';
+import { ReportPublication } from '../../models/report-publication';
 
 @Component({
   selector: 'app-review-publication',
@@ -11,18 +13,36 @@ import Swal from 'sweetalert2';
   styleUrl: './review-publication.component.css'
 })
 export class ReviewPublicationComponent {
-  publications: Publication[] = []
+  img = environment.urlImg;
+  publications: Publication[] = [];
   categories: { [id: number]: string } = {};
   states: { [id: number]: string } = {};
   types: { [id: number]: string } = {};
 
+  actualState = 0;
+
   constructor(private publicationService: PublicationService, private router: Router, private loginService: LoginService) { }
   ngOnInit() {
-    this.getPublications();
+    this.actualState = 1;
+    this.getPublications(this.actualState);
   }
 
-  getPublications() {
-    this.publicationService.getReviewPublication().subscribe(
+  getReports(reportPublication: number) {
+    this.publicationService.getReportPublication(reportPublication).subscribe(
+      (reportPublications: ReportPublication[]) => {
+        this.goToReportPublication(reportPublications);
+      }
+    )
+  }
+
+  goToReportPublication(reportPublication: ReportPublication[]) {
+    this.publicationService.setReportPublication(reportPublication);
+    this.router.navigateByUrl('/report_publication');
+  }
+
+  getPublications(state: number) {
+    this.actualState = state;
+    this.publicationService.getReviewPublication(state).subscribe(
       (publications: Publication[]) => {
         this.publications = publications;
         for (const publication of this.publications) {
@@ -55,7 +75,7 @@ export class ReviewPublicationComponent {
               timer: 1500,
               showConfirmButton: false
             }).then(() => {
-              this.getPublications();
+              this.getPublications(this.actualState);
             });
           },
           error: (errorData) => {
@@ -94,7 +114,7 @@ export class ReviewPublicationComponent {
               timer: 1500,
               showConfirmButton: false
             }).then(() => {
-              this.getPublications();
+              this.getPublications(this.actualState);
             });
           },
           error: (errorData) => {

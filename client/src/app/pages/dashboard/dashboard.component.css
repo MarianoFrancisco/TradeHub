@@ -18,17 +18,17 @@
 }
 
 .mostrador .fila .item {
+    width: 100%;
+    height: 400px;
     max-width: 210px;
-    padding: -10px;
-    height: 250px;
-    /*border: 2px solid red;*/
     text-align: center;
     margin: 0 10px;
     cursor: pointer;
     border-radius: 5px;
     transition: .3s;
-    background-color: #ffffffe3;
+    background-color: #000000a7;
 }
+
 
 .mostrador .fila .item:hover {
     background-color: #00fff2;
@@ -42,32 +42,53 @@
     background-color: #00fff2;
 }
 
+.mostrador .fila .item:hover .type {
+    background-color: #00fff2;
+}
+
 .mostrador .fila .item img {
     width: 100%;
     margin: 40px 0;
 }
 
 .mostrador .fila .item .descripcion {
-    color: #000000;
+    color: #ffffff;
     font-weight: bold;
-    background-color: #ffffffe3;
     border-radius: 5px;
     text-align: center; /* Agrega esta línea para centrar el texto */
 }
 
 .mostrador .fila .item .precio {
-    color: #ff7e0e;
+    color: #ff5500;
     font-weight: bold;
     font-size: 20px;
-    background-color: #ffffffe3;
     border-radius: 5px;
 }
-#inBtn {
-    width: 100%;
-    height: 50px;
+
+.mostrador .fila .item .type {
+    color: #ff0000;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 5px;
+}
+
+.inBtn {
+    width: 100%; /* Ancho de cada botón */
+    height: auto; /* Ajusta la altura automáticamente según el contenido del texto */
     border-radius: 10px;
-    line-height: 10px;
-    border: 4px solid #00cccc;
+    padding: 10px 20px; /* Agrega padding interno para darle espacio al texto */
+    font-size: 16px; /* Ajusta el tamaño de la fuente */
     color: #000000;
     cursor: pointer;
+    font-weight: bold;
+    flex: 1; /* Hace que los botones ocupen el mismo ancho y se distribuyan equitativamente */
+    margin: 0 5px; /* Añade margen entre los botones */
+    max-width: 100%; /* Define el ancho máximo de cada botón */
+}
+
+.button-container {
+    display: flex; /* Hace que los elementos hijos se alineen en una fila */
+    width: 100%; /* El contenedor ocupa todo el ancho del navegador */
+    justify-content: space-between; /* Distribuye los elementos hijos equitativamente en la fila */
+    padding: 0 10px; /* Agrega un poco de espacio alrededor de los botones */
 }

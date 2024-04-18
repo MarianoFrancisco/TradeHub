@@ -1,38 +1,49 @@
+@if(login()){
+<p class="user">Usuario: {{user().name}}</p>
+@if(user().rol_id==2){
+<p class="coin">{{coin().system_coin}} <img width="50" height="50" src="../../../assets/img/arcane.png" alt="Logo" />
+    &nbsp;&nbsp;{{coin().volunteerism_coin}}<img width="50" height="50" src="../../../assets/img/aid.png" alt="Logo" />
+    &nbsp;&nbsp;
+</p>
+}}
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <div class="collapse navbar-collapse">
             @if(login()){
             @if(user().rol_id!=1){
-            <a class="navbar-brand" routerLink="/">INICIO</a>
+            <a class="navbar-brand" href="/">INICIO</a>
             }
             }@else{
-            <a class="navbar-brand" routerLink="/">INICIO</a>
+            <a class="navbar-brand" href="/">INICIO</a>
             }
             <ul class="nav navbar-nav">
                 @if(!login()){
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/login">INICIAR SESION</a>
+                    <a class="nav-link" href="/login">INICIAR SESION</a>
                 </li>
                 }
                 @if(login()){
                 @if(user().rol_id==1){
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/review_publication">REVISAR PUBLICACION</a>
+                    <a class="nav-link" href="/review_publication">EVALUAR PUBLICACION</a>
                 </li>
                 }
                 @if(user().rol_id==2){
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/coin">MONEDA</a>
+                    <a class="nav-link" href="/coin">MONEDA</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/user_publication">MIS PUBLICACIONES</a>
+                    <a class="nav-link" href="/user_publication">MIS PUBLICACIONES</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/chat">CHAT</a>
                 </li>
                 }
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/chat">CHAT</a>
+                    <a class="nav-link" href="/information">INFORMACION</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/information">INFORMACION</a>
+                    <a class="nav-link" href="/profile">PERFIL</a>
                 </li>
                 <li class="nav-item">
                     <button class="nav-link" (click)="logout()">CERRAR SESION</button>

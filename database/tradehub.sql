@@ -76,6 +76,7 @@ CREATE TABLE message_chat(
     id INT AUTO_INCREMENT PRIMARY KEY,
     chat_id INT,
     users_id INT,
+    date DATETIME,
     message VARCHAR(3000),
     FOREIGN KEY (users_id) REFERENCES users(id),
     FOREIGN KEY (chat_id) REFERENCES chat(id)
@@ -85,7 +86,6 @@ CREATE TABLE publication_reported (
     id INT AUTO_INCREMENT PRIMARY KEY,
     users_id INT,
     publication_id INT,
-    subject VARCHAR(255),
     description TEXT,
     date DATE,
     FOREIGN KEY (users_id) REFERENCES users(id),
@@ -97,25 +97,14 @@ CREATE TABLE transaction (
     buyer_users_id INT,
     seller_users_id INT,
     publication_id INT,
+    publication_type_id INT,
     quantity INT,
     unity_price DECIMAL(10,2),
-    is_volunteerism_coin BOOLEAN,
-    is_trade BOOLEAN,
     date DATE,
     description TEXT,
     total DECIMAL(10,2),
     FOREIGN KEY (buyer_users_id) REFERENCES users(id),
     FOREIGN KEY (seller_users_id) REFERENCES users(id),
-    FOREIGN KEY (publication_id) REFERENCES publication(id)
-);
-
-CREATE TABLE trade (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    transaction_id INT,
-    publication_id INT,
-    description TEXT,
-    quantity INT,
-    unity_price DECIMAL(10,2),
-    FOREIGN KEY (transaction_id) REFERENCES transaction(id),
-    FOREIGN KEY (publication_id) REFERENCES publication(id)
+    FOREIGN KEY (publication_id) REFERENCES publication(id),
+    FOREIGN KEY (publication_type_id) REFERENCES publication_type(id)
 );

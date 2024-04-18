@@ -3,6 +3,7 @@ import { PublicationService } from '../../services/publication/publication.servi
 import { Publication } from '../../models/publication';
 import { LoginService } from '../../services/auth/login.service';
 import Swal from 'sweetalert2';
+import { environment } from '../../../environments/environment.prod';
 
 @Component({
   selector: 'app-user-publication',
@@ -10,6 +11,7 @@ import Swal from 'sweetalert2';
   styleUrl: './user-publication.component.css'
 })
 export class UserPublicationComponent {
+  img = environment.urlImg;
   data = "";
   publications: Publication[] = [];
   categories: { [id: number]: string } = {};
@@ -22,7 +24,7 @@ export class UserPublicationComponent {
     this.getPublicationUser(this.user().id);
   }
 
-  getPublicationUserFilter(id: number, state:number) {
+  getPublicationUserFilter(id: number, state: number) {
     this.publicationService.getPublicationUserFilter(id, state).subscribe(
       (publications: Publication[]) => {
         this.publications = publications;
@@ -48,24 +50,24 @@ export class UserPublicationComponent {
     )
   }
 
-  review(id: number) {
+  review(id: number, state: number, text: string, text2: string) {
     Swal.fire({
       title: '¿Estás seguro?',
-      text: '¿Quieres enviar a revision esta publicación?',
+      text: '¿Quieres ' + text + ' esta publicación?',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, enviar a revision',
+      confirmButtonText: 'Sí, ' + text,
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.publicationService.reviewPublication(id, 1).subscribe({
+        this.publicationService.reviewPublication(id, state).subscribe({
           next: () => {
             Swal.fire({
               icon: 'success',
-              title: 'Publicacion enviada a revision',
-              text: '¡La publicacion ha sido enviada a revision!',
+              title: 'Publicacion ' + text2,
+              text: '¡La publicacion ha sido ' + text2,
               timer: 1500,
               showConfirmButton: false
             }).then(() => {
@@ -76,7 +78,7 @@ export class UserPublicationComponent {
             Swal.fire({
               icon: 'error',
               title: 'Oops...',
-              text: 'Ha ocurrido un error al intentar enviar a revision',
+              text: 'Ha ocurrido un error al intentar ' + text,
               confirmButtonText: 'Entendido'
             });
             console.error(errorData);

@@ -40,7 +40,20 @@ class UserController extends Controller
         ]);
         // Guarda el usuario en la base de datos
         $user->save();
+        $user = User::where('user_name', $user->user_name)->first();
+        $coinController = new CoinController();
+        $coinController::class::createCoin($user->id);
         // Retorna una respuesta adecuada
         return response()->json(['message' => 'Usuario creado correctamente'], 201);
+    }
+
+    public function getUserName($id)
+    {
+        $userName = User::where('id', $id)->value('name');
+        if ($userName) {
+            return response()->json($userName);
+        } else {
+            return response()->json(['error' => 'No se encontró el usuario'], 404);
+        }
     }
 }

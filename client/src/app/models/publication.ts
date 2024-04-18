@@ -9,5 +9,5 @@ export interface Publication {
     image: string,
     quantity: number,
     unity_price: number,
-    date: Date,
+    date: Date
 }  

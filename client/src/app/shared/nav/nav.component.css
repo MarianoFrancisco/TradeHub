@@ -1,0 +1,34 @@
+nav {
+    position: fixed;
+    top: 48.3px; /* Se ajusta según la altura del h1 */
+    width: 100%;
+    background-color: #212529;
+    z-index: 9998; /* Asegura que esté por debajo del h1 */
+}
+
+.coin {
+    font-weight: 500;
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    height: 48.3px; /* Se ajusta según la altura del h1 */
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    color: #ff5500;
+    z-index: 9999; /* Asegura que esté por encima de otros elementos */
+}
+
+.user {
+    font-size: 25px;
+    font-weight: 500;
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    height: 48.3px; /* Se ajusta según la altura del h1 */
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    color: #ff5500;
+    z-index: 9999; /* Asegura que esté por encima de otros elementos */
+}

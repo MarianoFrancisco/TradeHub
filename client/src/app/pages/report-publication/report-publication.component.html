@@ -1,0 +1,22 @@
+<app-nav></app-nav>
+<h1 align="center" style="color:#ff5500;">DETALLES DE REPORTE</h1>
+<br>
+<table class="table">
+    <thead class="thead-dark">
+        <tr align="center">
+            <th scope="col">USUARIO QUE REPORTA</th>
+            <th scope="col">DESCRIPCION</th>
+            <th scope="col">FECHA</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @for(reportPublications of reportPublications(); track reportPublications){
+        <tr align="center">
+            <th scope="row">{{users[reportPublications.users_id]}}</th>
+            <td>{{reportPublications.description}}</td>
+            <td>{{reportPublications.date}}</td>
+        </tr>
+        }
+    </tbody>
+</table>

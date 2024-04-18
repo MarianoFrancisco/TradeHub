@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { LoginService } from '../../services/auth/login.service';
 import { LoginData } from '../../services/auth/loginData';
 import Swal from 'sweetalert2';
+import { Coin } from '../../models/coin';
+import { CoinService } from '../../services/coin/coin.service';
 
 declare function initializeLogin(): void;
 
@@ -14,7 +16,8 @@ declare function initializeLogin(): void;
 })
 
 export class LoginComponent implements OnInit {
-  constructor(private formBuilder: FormBuilder, private router: Router, private loginService: LoginService) {
+  constructor(private formBuilder: FormBuilder, private router: Router,
+    private loginService: LoginService, private coinService: CoinService) {
     initializeLogin();
   }
 
@@ -28,6 +31,7 @@ export class LoginComponent implements OnInit {
   })
 
   isAdmin = 0;
+  idUser = 0;
 
   get userName() {
     return this.loginForm.controls.userName;
@@ -44,7 +48,8 @@ export class LoginComponent implements OnInit {
         next: (userData) => {
           if (userData.rol_id === 1) {
             this.isAdmin = 1;
-          }else{
+          } else {
+            this.idUser=userData.id;
             this.isAdmin = 0;
           }
         },
@@ -66,9 +71,10 @@ export class LoginComponent implements OnInit {
             timer: 1500,
             showConfirmButton: false
           });
-          if(this.isAdmin!=0){
+          if (this.isAdmin != 0) {
             this.router.navigateByUrl('/review_publication');
-          }else{
+          } else {
+            this.getCoin(this.idUser);
             this.router.navigateByUrl('/');
           }
           this.loginForm.reset();
@@ -84,5 +90,13 @@ export class LoginComponent implements OnInit {
         confirmButtonText: 'Entendido'
       })
     }
+  }
+
+  getCoin(id: number) {
+    this.coinService.getCoin(id).subscribe(
+      (coin: Coin) => {
+        this.coinService.setCoin(coin);
+      }
+    )
   }
 }

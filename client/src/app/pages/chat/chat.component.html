@@ -1,1 +1,37 @@
 <app-nav></app-nav>
+<h1 align="center" style="color:#ff5500;">MIS CHATS</h1>
+<div class="button-container">
+    <input type="submit" (click)='getChats()' name="login" value="MOSTRAR TODOS LOS CHATS" class="inBtn"
+        style="background-color:rgb(0, 247, 255)">
+    <input type="submit" (click)='getChatsOwner()' name="login" value="FILTRAR CHAT COMO DUEÑO" class="inBtn"
+        style="background-color:rgb(0, 76, 255)">
+    <input type="submit" (click)='getChatsClient()' name="login" value="FILTRAR CHAT COMO CLIENTE" class="inBtn"
+        style="background-color:rgb(128, 0, 255)">
+</div>
+<br>
+<table class="table">
+    <thead class="thead-dark">
+        <tr align="center">
+            <th scope="col">DUEÑO DE PUBLICACION</th>
+            <th scope="col">CLIENTE DE PUBLICACION</th>
+            <th scope="col">TITULO DE PUBLICACION</th>
+            <th scope="col">DESCRIPCION</th>
+            <th scope="col">TIPO DE PUBLICACION</th>
+            <th scope="col">IMAGEN</th>
+            <th scope="col">CHAT</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for(chat of chats; track chat){
+        <tr align="center">
+            <th scope="row">{{sellers[chat.id]}}</th>
+            <td scope="row">{{buyers[chat.id]}}</td>
+            <td>{{titles[chat.id]}}</td>
+            <td>{{descriptions[chat.id]}}</td>
+            <td>{{types[chat.id]}}</td>
+            <td><img class="small-flag" src="{{img + images[chat.id]}}" width="100" height="100"></td>
+            <td><input type="submit" (click)="goToChat(chat)" name="login" value="Chatear" class="btn btn-info"></td>
+        </tr>
+        }
+    </tbody>
+</table>

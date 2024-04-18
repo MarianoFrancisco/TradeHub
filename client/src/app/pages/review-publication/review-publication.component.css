@@ -1,9 +1,54 @@
-#inBtn {
-    width: 100%;
-    height: 50px;
+.inBtn {
+    width: 100%; /* Ancho de cada botón */
+    height: auto; /* Ajusta la altura automáticamente según el contenido del texto */
     border-radius: 10px;
-    line-height: 10px;
-    border: 4px solid #00cccc;
+    padding: 10px 20px; /* Agrega padding interno para darle espacio al texto */
+    font-size: 16px; /* Ajusta el tamaño de la fuente */
     color: #000000;
     cursor: pointer;
+    font-weight: bold;
+    flex: 1; /* Hace que los botones ocupen el mismo ancho y se distribuyan equitativamente */
+    margin: 0 5px; /* Añade margen entre los botones */
+    max-width: 100%; /* Define el ancho máximo de cada botón */
+}
+
+.button-container {
+    display: flex; /* Hace que los elementos hijos se alineen en una fila */
+    width: 100%; /* El contenedor ocupa todo el ancho del navegador */
+    justify-content: space-between; /* Distribuye los elementos hijos equitativamente en la fila */
+    padding: 0 10px; /* Agrega un poco de espacio alrededor de los botones */
+}
+
+/* Estilos para las filas impares */
+.table tbody tr:nth-child(odd) {
+    border: 1px solid #000000; /* Borde de las celdas */
+    padding: 8px; /* Espaciado interno */
+}
+
+/* Estilos para las filas pares */
+.table tbody tr:nth-child(even) {
+    border: 1px solid #000000; /* Borde de las celdas */
+    padding: 8px; /* Espaciado interno */
+}
+
+/* Estilos para el encabezado */
+.table thead th {
+    background-color: #343a40; /* Color de fondo */
+    color: #ffffff; /* Color del texto */
+    border: 1px solid #000000; /* Borde de las celdas */
+    padding: 8px; /* Espaciado interno */
+}
+
+.table tbody th {
+    background-color: #343a40; /* Color de fondo */
+    color: #ffffff; /* Color del texto */
+    border: 1px solid #000000; /* Borde de las celdas */
+    padding: 8px; /* Espaciado interno */
+}
+
+/* Estilos para las celdas */
+.table tbody td {
+    background-color: #dddcdc; /* Color de fondo */
+    border: 1px solid #000000; /* Borde de las celdas */
+    padding: 8px; /* Espaciado interno */
 }

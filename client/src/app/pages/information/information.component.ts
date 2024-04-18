@@ -10,7 +10,9 @@ import { PublicationState } from '../../services/publication/publicationState';
   templateUrl: './information.component.html',
   styleUrl: './information.component.css'
 })
-export class InformationComponent  implements OnInit{
+export class InformationComponent implements OnInit {
+  seeInformation: number = 0;
+
   constructor(private publicationService: PublicationService, private loginService: LoginService) {
   }
   publicationTypes: PublicationType[] = []
@@ -21,6 +23,11 @@ export class InformationComponent  implements OnInit{
     this.publicationType();
     this.publicationState();
   }
+
+  setInformation(value: number) {
+    this.seeInformation = value;
+  }
+
   category() {
     this.publicationService.getAllCategory().subscribe({
       next: (categories: Category[]) => {

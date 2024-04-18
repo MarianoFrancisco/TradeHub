@@ -1,8 +1,15 @@
 <app-nav></app-nav>
-<h1 align="center" style="color:#ff8b31;">PUBLICACIONES REPORTADAS Y EN REVISION</h1>
+<h1 align="center" style="color:#ff5500;">PUBLICACIONES REPORTADAS Y EN REVISION</h1>
+<div class="button-container">
+    <input type="submit" (click)="getPublications(1)" name="login" value="MOSTRAR PUBLICACION A REVISAR" class="inBtn"
+        style="background-color:rgb(0, 247, 255)">
+    <input type="submit" (click)="getPublications(3)" name="login" value="MOSTRAR PUBLICACIONES REPORTADAS"
+        class="inBtn" style="background-color:rgb(128, 0, 255)">
+</div>
+<br>
 <table class="table">
     <thead class="thead-dark">
-        <tr>
+        <tr align="center">
             <th scope="col">TITULO</th>
             <th scope="col">ESTADO</th>
             <th scope="col">TIPO</th>
@@ -12,6 +19,9 @@
             <th scope="col">CANTIDAD</th>
             <th scope="col">PRECIO UNITARIO</th>
             <th scope="col">FECHA</th>
+            @if(actualState === 3){
+            <th scope="col">JUSTIFICACIONES</th>
+            }
             <th scope="col">ACEPTAR</th>
             <th scope="col">RECHAZAR</th>
         </tr>
@@ -19,16 +29,22 @@
 
     <tbody>
         @for(publication of publications; track publication){
-        <tr>
+        <tr align="center">
             <th scope="row">{{publication.title}}</th>
             <td>{{states[publication.id]}}</td>
             <td>{{types[publication.id]}}</td>
             <td>{{categories[publication.id]}}</td>
             <td>{{publication.description}}</td>
-            <td><img class="small-flag" src="{{publication.image}}" width="100" height="100"></td>
+            <td><img class="small-flag" src="{{img + publication.image}}" width="100" height="100"></td>
             <td>{{publication.quantity}}</td>
             <td>{{publication.unity_price}}</td>
             <td>{{publication.date}}</td>
+            @if(actualState === 3){
+            <td>
+                <input type="submit" (click)="getReports(publication.id)" name="login" value="Visualizar"
+                    class="btn btn-warning">
+            </td>
+            }
             <td><input type="submit" (click)="accept(publication.id)" name="login" value="Aceptar"
                     class="btn btn-success"></td>
             <td><input type="submit" (click)="reject(publication.id)" name="login" value="Rechazar"

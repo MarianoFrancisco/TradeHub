@@ -1,29 +1,45 @@
 <app-nav></app-nav>
+<h1 align="center" style="color:#ff5500;">PUBLICACIONES</h1>
+<div class="button-container">
+  <input type="submit" (click)="getPublications()" name="login" value="VER TODAS LAS PUBLICACIONES" class="inBtn"
+    style="background-color:rgb(0, 247, 255)">
+  <input type="submit" (click)="getPublicationsFilter(publicationTypes[2].id)" name="login" value="VER TRUEQUES"
+    class="inBtn" style="background-color:rgb(0, 76, 255)">
+  <input type="submit" (click)="getPublicationsFilter(publicationTypes[3].id)" name="login" value="VER VOLUNTARIADOS"
+    class="inBtn" style="background-color:rgb(47, 255, 0)">
+  <input type="submit" (click)="getPublicationsFilter(publicationTypes[0].id)" name="login" value="VER COMPRAS"
+    class="inBtn" style="background-color:rgb(255, 255, 0)">
+  <input type="submit" (click)="getPublicationsFilter(publicationTypes[1].id)" name="login" value="VER VENTAS"
+    class="inBtn" style="background-color:rgb(128, 0, 255)">
+</div>
 @if(login()){
 }
-<h1 align="center" style="color:#ff8b31;">PUBLICACIONES</h1>
 @for(publicationAll of publications; track publicationAll){
 <section class="contenido">
   <div class="mostrador" id="mostrador">
     <div class="fila">@for(publication of publicationAll; track publication){
-      <div class="item" routerLink="/publication/{{publication.id}}">
+      <div class="item" (click)="goToPublication(publication)">
         <div class="contenedor-foto">
-          <img src="{{ publication.image}}" style="width: 200px; height: 190px;">
+          <img src="{{img + publication.image}}" style="width: 200px; height: 190px;">
         </div>
-        @if( publication.title.length < 34){
-          @if( publication.title.length > 25){
-            <p class="descripcion">{{ publication.title}}</p>
-          }@else{
-            <p class="descripcion">{{ ('&nbsp;'.repeat((34 - publication.title.length) / 2)) + publication.title + ('&nbsp;'.repeat((34 - publication.title.length) / 4)) }}</p>
-          }
-        }@else{
-          <p class="descripcion">{{ publication.title.slice(0,30) }} ...</p>
+        @if(publication.publication_type_id === 1){
+        <span class="type">{{ publicationTypes[0].name }}</span>
+        }@else if(publication.publication_type_id === 2){
+        <span class="type">{{ publicationTypes[1].name }}</span>
+        }@else if(publication.publication_type_id === 3){
+        <span class="type">{{ publicationTypes[2].name }}</span>
+        }@else if(publication.publication_type_id === 4){
+        <span class="type">{{ publicationTypes[3].name }}</span>
         }
-        <span class="precio">{{ publication.unity_price }}</span>
+        @if( publication.title.length < 34) { <p class="descripcion">{{ publication.title}}</p>
+          }
+          @else{
+          <p class="descripcion">{{ publication.title.slice(0,30) }} ...</p>
+          }
+          <span class="precio">{{ publication.unity_price }}</span>
       </div>
       }
     </div>
   </div>
 </section>
-<br><br>
 }

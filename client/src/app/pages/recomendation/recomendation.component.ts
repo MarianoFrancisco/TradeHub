@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, computed } from '@angular/core';
+import { LoginService } from '../../services/auth/login.service';
+import { CoinService } from '../../services/coin/coin.service';
 
 @Component({
   selector: 'app-recomendation',
@@ -6,5 +8,6 @@ import { Component } from '@angular/core';
   styleUrl: './recomendation.component.css'
 })
 export class RecomendationComponent {
-
+  constructor(private loginService: LoginService, private coinService: CoinService) { }
+  user = computed(() => this.loginService.getLoginUser());
 }

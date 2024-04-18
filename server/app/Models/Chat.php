@@ -10,9 +10,9 @@ class Chat extends Model
     use HasFactory;
     protected $table = 'chat';
     protected $fillable = [
-        'seller',
-        'buyer',
-        'publication',
+        'buyer_users_id',
+        'seller_users_id',
+        'publication_id',
     ];
     public $timestamps = false;
 }

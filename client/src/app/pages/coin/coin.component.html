@@ -1,14 +1,95 @@
 <app-nav></app-nav>
-<h1 align="center" style="color:#ff8b31;">MONEDAS</h1>
+<h1 align="center" style="color:#ff5500;">MONEDAS</h1>
 <br>
 <main>
     <div class="container-img">
-        <img src="../../../assets/img/logoTest.jpg" alt="Logo" />
+        <br><br>
+        <form [formGroup]="cardForm">
+            <div id="circle" align="center">
+                <h1 align="center" id="blinking" style="color: #ff5500; ">INGRESAR TARJETA</h1>
+                <div id="box2">
+                    <div>
+                        <input type="text" formControlName="number" name="numero" id="numero"
+                            placeholder="Numero de la tarjeta" class="input">
+                        <input type="text" formControlName="name" placeholder="Nombre del titular" name="nombre"
+                            id="nombre" class="input3">
+                    </div>
+                    @if(number.invalid && (number.dirty || number.touched)){
+                    <div class="text-danger">
+                        @if(number.errors?.['required']){
+                        El numero de tarjeta es requerido
+                        }
+                        @if(number.errors?.['pattern']){
+                        La tarjeta debe tener el formato 0000 0000 0000 0000
+                        }
+                    </div>
+                    }
+                    @if(name.invalid && (name.dirty || name.touched)){
+                    <div class="text-danger">
+                        @if(name.errors?.['required']){
+                        El nombre es requerido
+                        }
+                        @if(name.errors?.['pattern']){
+                        El nombre es de unicamente letras
+                        }
+                    </div>
+                    }
+                    <div>
+                        <input type="text" formControlName="expiration" placeholder="Fecha de expiración" name="fecha"
+                            id="fecha" class="input2">
+                        <input type="text" formControlName="code" placeholder="Código de seguridad" name="codigo"
+                            id="codigo" class="input4">
+
+                    </div>
+                    @if(expiration.invalid && (expiration.dirty || expiration.touched)){
+                    <div class="text-danger">
+                        @if(expiration.errors?.['required']){
+                        La fecha de expiracion es requerida
+                        }
+                        @if(expiration.errors?.['pattern']){
+                        La fecha de expiracion debe tener el formato MM/AA
+                        }
+                    </div>
+                    }
+                    @if(code.invalid && (code.dirty || code.touched)){
+                    <div class="text-danger">
+                        @if(code.errors?.['required']){
+                        El codigo es requerido
+                        }
+                        @if(code.errors?.['pattern']){
+                        El codigo debe tener 3 digitos o 4
+                        }
+                    </div>
+                    }
+                    <div class="container-quantity">
+                        <p class="quantityMount">CANTIDAD ARCANES
+                            <input type="number" formControlName="quantity" placeholder="1" value="1" min="1"
+                                class="input2" />
+                        </p>
+                    </div>
+                    @if(quantity.invalid && (quantity.dirty || quantity.touched)){
+                    <div class="text-danger">
+                        @if(quantity.errors?.['required']){
+                        La cantidad es requerida
+                        }
+                    </div>
+                    }<br>
+                    <div>
+                        <input (click)="buyArcane()" type="submit" name="pay" value="COMPRAR ARCANES" id="inBtnBuy">
+                        <input (click)="withDrawArcane()" type="submit" name="pay" value="RETIRAR ARCANES"
+                            id="inBtnWithDraw">
+                    </div>
+                </div>
+            </div>
+        </form>
+        <br>
+        <p class="noteText">MONEDAS DE VOLUNTARIADO NO SE PUEDEN RETIRAR, UNICAMENTE SE PUEDEN USAR EN LA PLATAFORMA
+        </p>
     </div>
     <div class="container-info-product">
         <br>
         <div class="container-price">
-            <p ALIGN="justify" class="card-text">Monedas actuales del usuario, del sistema y de voluntariado.</p>
+            <p ALIGN="justify" class="card-text">MONEDAS ACTUALES</p>
             <i class="fa-solid fa-angle-right"></i>
         </div>
         <div class="container-description">
@@ -18,7 +99,9 @@
             </div>
             <div class="text-category">
                 <p>
-                    {{coin.volunteerism_coin}}
+                    Aid
+                    <img width="100" height="100" src="../../../assets/img/aid.png" alt="Logo" />
+                    {{coin().volunteerism_coin}}
                 </p>
             </div>
         </div>
@@ -29,19 +112,18 @@
             </div>
             <div class="text-description">
                 <p>
-                    {{coin.system_coin}}
+                    Arcane
+                    <img width="100" height="100" src="../../../assets/img/arcane.png" alt="Logo" />
+                    {{coin().system_coin}}
                 </p>
             </div>
         </div>
         <br>
         <div class="container-add-cart">
             <div class="container-quantity">
-                <input type="number" placeholder="1" value="1" min="1" class="input-quantity" />
+                <p class="quantityText">1 ARCANE = 10 QUETZALES
+                </p>
             </div>
-            <button class="btn-add-to-cart">
-                <i class="fa-solid fa-plus"></i>
-                COMPRAR MONEDAS
-            </button>
         </div>
     </div>
 </main>

@@ -1,1 +1,41 @@
 <app-nav></app-nav>
+<h1 align="center" style="color:#ff5500;">PERFIL</h1>
+<br>
+<main>
+    <div class="container-info-product">
+        <br>
+        <div class="container-price">
+            <p ALIGN="justify" class="card-text">USUARIO: {{user().user_name}}</p>
+            <i class="fa-solid fa-angle-right"></i>
+        </div>
+        <div class="container-description">
+            <div class="title-category">
+                <h4>Nombre</h4>
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <div class="text-category">
+                <p>
+                    {{user().user_name}}
+                </p>
+            </div>
+        </div>
+        <div class="container-description">
+            <div class="title-description">
+                <h4>Celular</h4>
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <div class="text-description">
+                <p>
+                    {{user().phone}}
+                </p>
+            </div>
+        </div>
+        <br>
+        <div class="container-add-cart">
+            <div class="container-quantity">
+                <p class="quantityText">
+                </p>
+            </div>
+        </div>
+    </div>
+</main>

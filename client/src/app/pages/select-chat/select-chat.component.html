@@ -1,0 +1,37 @@
+<app-nav></app-nav>
+<h1>{{publication.title}}</h1>
+@if(publication.publication_type_id==1 && user().id==chat().seller_users_id){
+<div class="transaction">
+    <button class="inBtn" (click)="pay('Arcane', 1, ' compra ')" id="send-button">Pagar Arcanes</button>
+</div>
+}@else if(publication.publication_type_id==4 && user().id==chat().seller_users_id){
+<div class="transaction">
+    <button class="inBtn" (click)="pay('Aid', 2, ' voluntariado ')" id="send-button">Pagar Aids</button>
+</div>
+}
+<br>
+<div class="chat-container">
+    <br><br>
+    @for(messageChat of messagesChat; track messageChat){
+    @if(user().id === messageChat.users_id){
+    <div class="self">
+        <div class="message-user">{{user().name}}</div>
+        <div class="chat-message">{{messageChat.message}}</div>
+        <div class="message-timestamp">{{messageChat.date}}</div>
+    </div>
+    }@else{
+    <div class="other">
+        <div class="message-user">{{other_name}}</div>
+        <div class="chat-message">{{messageChat.message}}</div>
+        <div class="message-timestamp">{{messageChat.date}}</div>
+    </div>
+    }
+    }
+    <br>
+    <form [formGroup]="messageForm">
+        <div class="input-container">
+            <input type="text" formControlName="message" id="message-input" placeholder="Escribe tu mensaje...">
+            <button (click)="sendMessage()" id="send-button">Enviar</button>
+        </div>
+    </form>
+</div>

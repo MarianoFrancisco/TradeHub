@@ -33,7 +33,6 @@ export class LoginService {
       this.loginUser.set(userData);
     }
     this.loginOn.set(localStorage.getItem("user") ? true : false);
-
   }
 
 

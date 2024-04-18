@@ -4,26 +4,24 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Publication;
-use DateTime;
+
 class PublicationController extends Controller
 {
     public function save(Request $request)
     {
-        // Valida los datos del request
         $request->validate([
             'users_id' => 'required',
             'publication_type_id' => 'required',
             'category_id' => 'required',
             'title' => 'required|string',
             'description' => 'required|string',
-            'image' => 'required',
+            'image' => 'required|image',
             'quantity' => 'required',
             'unity_price' => 'required',
         ]);
         $image = $request->file('image');
         $nombreArchivo = time() . '-' . $image->getClientOriginalName();
-        $image->move(public_path('img'), $nombreArchivo);
-        // Crea un nueva publicacion con los datos del request
+        $image->storeAs('img', $nombreArchivo, 'public');
         $publication = new Publication([
             'users_id' => $request->users_id,
             'publication_type_id' => $request->publication_type_id,
@@ -31,20 +29,28 @@ class PublicationController extends Controller
             'publication_state_id' => 1,
             'title' => $request->title,
             'description' => $request->description,
-            //'image' => 'http://www.internal.tradehub.gt/img/logo.jpg',// . $nombreArchivo, // Guardar el nombre del archivo en lugar de la imagen real
-            'image' => 'http://www.internal.tradehub.gt/img/' . $nombreArchivo,
+            'image' => $nombreArchivo,
             'quantity' => $request->quantity,
             'unity_price' => $request->unity_price,
-            'date' => (new DateTime())->format('Y-m-d')
+            'date' => now()->format('Y-m-d')
         ]);
-        // Guardar la nueva publicación en la base de datos
         $publication->save();
         return response()->json(['message' => 'Publicación creada exitosamente'], 201);
     }
 
-    public function getAll()
+    public function getAllExcept($id)
     {
-        $publications = Publication::all();
+        $publications = Publication::whereNotIn('users_id', [$id])
+            ->whereNotIn('publication_state_id', [1, 4, 5])
+            ->get();
+        return response()->json($publications);
+    }
+
+    public function getAllExceptFilter($id, $type)
+    {
+        $publications = Publication::where("publication_type_id", $type)
+            ->whereNotIn('publication_state_id', [1, 4, 5])
+            ->whereNotIn('users_id', [$id])->get();
         return response()->json($publications);
     }
 
@@ -52,6 +58,14 @@ class PublicationController extends Controller
     {
         $publication = Publication::where("id", $id)->first();
         return response()->json($publication);
+    }
+
+    public static function alreadyReportPublication($id)
+    {
+        $publication = Publication::where("id", $id)
+            ->where("publication_state_id", 3)
+            ->first();
+        return $publication;
     }
 
     public function getPublicationsUser($id)
@@ -84,20 +98,45 @@ class PublicationController extends Controller
         try {
             $state = $request->input('state');
             $publication = Publication::find($id);
+            $report = $this::alreadyReportPublication($id);
             $publication->update(['publication_state_id' => $state]);
-            return response()->json(['message' => 'Publicación actualizada correctamente']);
+            if ($report) {
+                $publicationReportController = new PublicationReportController();
+                $publicationReportController->deleteReports($id);
+                return response()->json(['message' => 'Publicacion revisada correctamente y reportes eliminados'], 200);
+            }
+            return response()->json(['message' => 'Publicación revisada correctamente'], 200);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
 
-    public function reviewAdminPublication($stateReview, $stateReport)
+    public static function reportStatePublication($id)
     {
         try {
-            $publications = Publication::whereIn('publication_state_id', [$stateReview, $stateReport])->get();
+            $publication = Publication::find($id);
+            $publication->update(['publication_state_id' => 3]);
+            return response()->json(['message' => 'Publicación actualizada a reportada']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function reviewAdminPublication($stateReview)
+    {
+        try {
+            $publications = Publication::whereIn('publication_state_id', [$stateReview])->get();
             return response()->json($publications);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
+    }
+
+    public static function reducedQuantity($id, $quantity)
+    {
+        $publication = Publication::find($id);
+        $newQuantity = $publication->quantity - $quantity;
+        $publication->update(['quantity' => $newQuantity]);
+        return response()->json($publication);
     }
 }

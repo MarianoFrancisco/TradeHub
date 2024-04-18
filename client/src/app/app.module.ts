@@ -21,6 +21,8 @@ import { EditUserComponent } from './pages/edit-user/edit-user.component';
 import { InformationComponent } from './pages/information/information.component';
 import { RecomendationComponent } from './pages/recomendation/recomendation.component';
 import { ChatComponent } from './pages/chat/chat.component';
+import { SelectChatComponent } from './pages/select-chat/select-chat.component';
+import { ReportPublicationComponent } from './pages/report-publication/report-publication.component';
 
 
 @NgModule({
@@ -41,7 +43,9 @@ import { ChatComponent } from './pages/chat/chat.component';
     EditUserComponent,
     InformationComponent,
     RecomendationComponent,
-    ChatComponent
+    ChatComponent,
+    SelectChatComponent,
+    ReportPublicationComponent
   ],
   imports: [
     BrowserModule,

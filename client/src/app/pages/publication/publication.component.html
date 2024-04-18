@@ -1,13 +1,13 @@
 <app-nav></app-nav>
-<h1 align="center" style="color:#ff8b31;">{{ publication.title }}</h1>
+<h1 align="center" style="color:#ff5500;">{{ publication().title }}</h1>
 <br>
 <main>
     <div class="container-img">
-        <img src="{{publication.image}}" alt="imagen-producto" />
+        <img src="{{img + publication().image}}" alt="imagen-producto" />
     </div>
     <div class="container-info-product">
         <div class="container-price">
-            <span>Precio por unidad: {{publication.unity_price}}</span>
+            <span>Precio por unidad: {{publication().unity_price}}</span>
             <i class="fa-solid fa-angle-right"></i>
         </div>
         <div class="container-description">
@@ -28,7 +28,7 @@
             </div>
             <div class="text-description">
                 <p>
-                    {{publication.description}}
+                    {{publication().description}}
                 </p>
             </div>
         </div>
@@ -39,7 +39,7 @@
                 <i class="fa-solid fa-chevron-down"></i>
             </div>
             <div class="text-additional-information hidden">
-                {{publication.quantity}}
+                {{publication().quantity}}
             </div>
         </div>
 
@@ -55,27 +55,42 @@
         <br>
         @if(login()){
         <div class="container-add-cart">
-            <div class="container-quantity">
-                <input type="number" placeholder="1" value="1" min="1" class="input-quantity" />
-            </div>
-            <button class="btn-add-to-cart">
-                <i class="fa-solid fa-plus"></i>
-                @if(publication.publication_type_id === 1){
-                Vender producto
-                }@else if(publication.publication_type_id === 2){
-                Comprar producto
-                }@else{
-                Trueque (Voluntariado) de producto
+            @if(publication().publication_type_id === 1){
+            USUARIO BUSCA COMPRAR
+            }@else if(publication().publication_type_id === 2){
+            <form [formGroup]="publicationForm">
+                <div class="container-quantity">
+                    <input type="number" formControlName="quantity" placeholder="1" value="1" min="1" class="input-quantity" />
+                </div>
+                @if(quantity.invalid && (quantity.dirty || quantity.touched)){
+                <div class="text-danger">
+                    @if(quantity.errors?.['required']){
+                    Requerido
+                    }
+                </div>
                 }
-            </button>
-            <button (click)="register()" class="btn-add-to-cart">
+            </form>
+            <button class="btn-add-to-cart" (click)="buy()">
                 <i class="fa-solid fa-plus"></i>
-                Crear chat
+                Comprar
+            </button>
+            }@else if(publication().publication_type_id === 3){
+            USUARIO BUSCA INTERCAMBIAR
+            }@else if(publication().publication_type_id === 4){
+            USUARIO BUSCA VOLUNTARIADO
+            }
+            <button (click)="createChat()" class="btn-chat">
+                <i class="fa-solid fa-plus"></i>
+                Cheatear
+            </button>
+            <button (click)="report()" class="btn-report">
+                <i class="fa-solid fa-plus"></i>
+                Reportar
             </button>
         </div>
         }
         <div class="container-add-cart">
-            <span>Fecha de creacion: {{publication.date}}</span>
+            <span>Fecha de creacion: {{publication().date}}</span>
         </div>
     </div>
 </main>

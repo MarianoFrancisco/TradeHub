@@ -1,4 +1,5 @@
 export interface GenerateChat {
-    seller:string,
-    buyer:string
+    seller:number,
+    buyer:number,
+    publication:number
 }

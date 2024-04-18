@@ -4,9 +4,9 @@ INSERT INTO rol (id, name, description) VALUES
 (2, 'Usuario', 'Usuario de la plataforma que puede interactuar con compras, ventas y trueque');
 -- Insertar un registro de Usuario
 INSERT INTO users (id, user_name, rol_id, name, pwd, birthdate, phone) VALUES
-(1, 'usuario', 2, 'Nombre del Usuario', '1234', '2000-01-01', '1234567890'),
-(2, 'admin', 1, 'Nombre del Administrador', '1234', '1990-01-01', '0987654321'),
-(3, 'usuario1', 2, 'Nombre del Usuario', '1234', '2000-01-01', '1234567890');
+(1, 'usuario', 2, 'Mariano', '1234', '2000-01-01', '1234567890'),
+(2, 'admin', 1, 'Francisco', '1234', '1990-01-01', '0987654321'),
+(3, 'usuario1', 2, 'Estrella', '1234', '2000-01-01', '1234567890');
 
 INSERT INTO user_coin (id, users_id, volunteerism_coin, system_coin) VALUES
 (1, 1, 150, 2000),
@@ -14,9 +14,10 @@ INSERT INTO user_coin (id, users_id, volunteerism_coin, system_coin) VALUES
 
 -- Inserción para "compra"
 INSERT INTO publication_type (id, name, description) VALUES
-(1, 'Compra', 'Esta publicación corresponde a una oferta de compra.'),
-(2, 'Venta', 'Esta publicación corresponde a una oferta de venta.'),
-(3, 'Trueque (Voluntariado)', 'Esta publicación corresponde a una oferta de trueque.');
+(1, 'Compra', 'Esta publicación se realiza para indicar que se compra algo.'),
+(2, 'Venta', 'Esta publicación se realiza para crear una venta.'),
+(3, 'Trueque', 'Esta publicación se realiza para crear un trueque.'),
+(4, 'Voluntariado', 'Esta publicación se realiza para crear un voluntariado.');
 
 INSERT INTO category (id, name, description) VALUES
     (1, 'Electrónica', 'Productos electrónicos y dispositivos.'),

@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, computed, signal } from '@angular/core';
 import { Observable, throwError, catchError, BehaviorSubject, tap } from 'rxjs';
 import { Publication } from '../../models/publication';
 import { environment } from '../../../environments/environment.prod';
@@ -7,25 +7,70 @@ import { Category } from './category';
 import { PublicationType } from './publicationType';
 import { PostPublication } from '../../models/post-publication';
 import { PublicationState } from './publicationState';
+import { PostReport } from '../../models/post-report';
+import { ReportPublication } from '../../models/report-publication';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PublicationService {
 
- headers: HttpHeaders = new HttpHeaders({
+  headers: HttpHeaders = new HttpHeaders({
     "Content-Type": "application/json"
   });
   //headers: HttpHeaders = new HttpHeaders({
-    //"Content-Type": "multipart/form-data"
+  //"Content-Type": "multipart/form-data"
   //});
-  constructor(private http: HttpClient) { }
+  private publication = signal<Publication>({
+    id: 0,
+    users_id: 0,
+    publication_type_id: 0,
+    publication_state_id: 0,
+    category_id: 0,
+    title: "",
+    description: "",
+    image: "",
+    quantity: 0,
+    unity_price: 0,
+    date: new Date()
+  });
+  private reportPublication = signal<ReportPublication[]>([]);
+  public setPublication(publication: Publication) {
+    localStorage.setItem("publication", JSON.stringify(publication));
+    this.publication.set(publication);
+  }
+  public setReportPublication(reportPublication: ReportPublication[]) {
+    localStorage.setItem("reportPublication", JSON.stringify(reportPublication));
+    this.reportPublication.set(reportPublication);
+  }
+  public getPublicationView = computed(() => this.publication());
+  public getReportPublicationView = computed(() => this.reportPublication());
+  constructor(private http: HttpClient) {
+    const publicationString: string | null = localStorage.getItem("publication");
+    const reportPublicationString: string | null = localStorage.getItem("reportPublication");
+    if (publicationString !== null) {
+      const publication: Publication = JSON.parse(publicationString);
+      this.publication.set(publication);
+    }
+    if (reportPublicationString !== null) {
+      const reportPublication: ReportPublication[] = JSON.parse(reportPublicationString);
+      this.reportPublication.set(reportPublication);
+    }
+  }
   base = environment.baseBackend;
-  getPublications(): Observable<Publication[]> {
-    return this.http.get<Publication[]>(`${this.base}publications`);
+  getPublications(id: number): Observable<Publication[]> {
+    return this.http.get<Publication[]>(`${this.base}publications/${id}`);
   }
 
-  getPublication(id: string): Observable<Publication> {
+  getReportPublication(id: number): Observable<ReportPublication[]> {
+    return this.http.get<ReportPublication[]>(`${this.base}publication_reported/${id}`);
+  }
+
+  getPublicationsFilter(id: number, type: number): Observable<Publication[]> {
+    return this.http.get<Publication[]>(`${this.base}publications/${id}/filter/${type}`);
+  }
+
+  getPublication(id: number): Observable<Publication> {
     return this.http.get<Publication>(`${this.base}publication/${id}`);
   }
 
@@ -59,8 +104,12 @@ export class PublicationService {
     return this.http.post<any>(`${this.base}publication`, formData);
   }
 
-  getReviewPublication(): Observable<Publication[]> {
-    return this.http.get<Publication[]>(`${this.base}publication/review/1/3`);
+  postReport(data: PostReport): Observable<PostReport> {
+    return this.http.post<PostReport>(`${this.base}publication_reported`, data);
+  }
+
+  getReviewPublication(state: number): Observable<Publication[]> {
+    return this.http.get<Publication[]>(`${this.base}publication/review/${state}`);
   }
 
   reviewPublication(id: number, state: number): Observable<any> {

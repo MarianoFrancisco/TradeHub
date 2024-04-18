@@ -7,9 +7,11 @@ import { ReviewPublicationComponent } from './pages/review-publication/review-pu
 import { PublicationComponent } from './pages/publication/publication.component';
 import { AddPublicationComponent } from './pages/add-publication/add-publication.component';
 import { UserPublicationComponent } from './pages/user-publication/user-publication.component';
+import { ReportPublicationComponent } from './pages/report-publication/report-publication.component';
 import { InformationComponent } from './pages/information/information.component';
 import { RecomendationComponent } from './pages/recomendation/recomendation.component';
 import { ChatComponent } from './pages/chat/chat.component';
+import { SelectChatComponent } from './pages/select-chat/select-chat.component';
 import { RegisterComponent } from './auth/register/register.component';
 
 const routes: Routes = [
@@ -18,12 +20,14 @@ const routes: Routes = [
   {path:'register',component:RegisterComponent},
   {path:'coin',component:CoinComponent},
   {path:'review_publication',component:ReviewPublicationComponent},
-  {path:'publication/:id',component:PublicationComponent},
+  {path:'publication',component:PublicationComponent},
   {path:'add_publication',component:AddPublicationComponent},
   {path:'user_publication',component:UserPublicationComponent},
+  {path:'report_publication',component:ReportPublicationComponent},
   {path:'information',component:InformationComponent},
-  {path:'recomendation',component:RecomendationComponent},
-  {path:'chat',component:ChatComponent}
+  {path:'profile',component:RecomendationComponent},
+  {path:'chat',component:ChatComponent},
+  {path:'view_chat',component:SelectChatComponent}
 ];
 
 @NgModule({

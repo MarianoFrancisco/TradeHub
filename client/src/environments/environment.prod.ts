@@ -1,4 +1,8 @@
 export const environment = {
   production: true,
-  baseBackend: 'http://www.internal.tradehub.gt/api/'
+  backend: 'http://www.internal.tradehub.gt/',
+  baseBackend: '',
+  urlImg: ''
 };
+environment.baseBackend = environment.backend + 'api/';
+environment.urlImg = environment.backend + 'storage/img/';
